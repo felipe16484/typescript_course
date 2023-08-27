@@ -20,10 +20,10 @@ let cadena = 'Hola';
 
 //*cadena.toLocaleLowerCase();
 // Permite la utilización del método puesto que éste es utilizado específicamente para tipo string.
-//! cadena.propiedadInexistente
+//! cadena.propiedadInexistente;
 // No permite utilizar propiedades porque 'cadena' es de tipo string y este tipo de dato no maneja 
 // la utilización de propiedades.
-//! cadena=2
+//! cadena=2;
 // No permite la reasignación de valores diferentes al que tenía cuando se inicializó la variable.
 
 
@@ -232,7 +232,7 @@ console.log(`\nINFERENCIA PARA OBJETOS:\nHéroe se llama ${thor.name}. Su edad e
 // para objetos.
 type Hero = {
     name: string,
-    age: Number
+    age: number
 };
 
 // Al momento de crear el objeto, es muy explícita la creación y la advertencia de errores. Ésto se debe a que sí o sí, el objeto al ser de type
@@ -269,4 +269,27 @@ function createHero3(hero: Hero): Hero {
 }
 // Para su ejecución lo único que debemos de tener en cuenta es que debemos mandar en los parámetros las propiedades que necesita la plantilla.
 const hawkeye = createHero3({name: 'Hawkeye', age: 440});
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS Y DESTRUCTURING:\nHéroe se llama ${hulk.name}. Su edad es ${hulk.age}.`);
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS Y DESTRUCTURING:\nHéroe se llama ${hawkeye.name}. Su edad es ${hawkeye.age}.`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Inferencia para Objetos con Type Alias, Destructuring y Optional Properties:
+
+// Las optional propierties como su nombre lo indica son propiedades opcionales de los objetos tiene y no afecta si son usadas o no en la ejecución 
+// del código.
+
+type HeroII = {
+    name: string,
+    age: number,
+    isActive?: boolean
+};
+
+function createHero4(hero: HeroII): HeroII {
+    const { name, age } = hero
+    return { name, age, isActive: true}
+}
+
+const blackwidow = createHero4({name:'Blackwidow',age:45})
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL PROPERTIES:\nHéroe se llama ${blackwidow.name}. Su edad es ${blackwidow.age}. ¿Está activo?: ${blackwidow.isActive}`);
