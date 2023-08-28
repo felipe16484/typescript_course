@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 
 //? Importante:
 //* Al momento de definir un tipo de dato como "any", estamos pasando por alto las indicaciones del lenguaje y le estamos diciendo a éste es que 
@@ -294,16 +295,28 @@ function createHero4(hero: HeroII): HeroII {
 const blackwidow = createHero4({name:'Blackwidow',age:45})
 console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL PROPERTIES:\nHéroe se llama "${blackwidow.name}". Su edad es ${blackwidow.age}. Estado Activo: ${blackwidow.isActive}`);
 
+/* 
 
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+* Optional Chaining
 
+El "optional chaining" (encadenamiento opcional) es una característica introducida en TypeScript y en otros lenguajes de programación como JavaScript para
+tratar con propiedades anidadas en objetos y evitar errores cuando una propiedad en la cadena de acceso puede ser nula o indefinida.
 
-//? Inferencia para Objetos con Type Alias, Destructuring y Optional Properties:
+En situaciones normales, cuando intentas acceder a una propiedad anidada en un objeto y alguna de las propiedades en la cadena de acceso es nula o indefinida, se producirá un 
+error de tipo "Cannot read property 'propiedad' of null/undefined". El "optional chaining" resuelve este problema al permitirte acceder a propiedades anidadas de forma 
+segura, evitando estos errores.
 
-// Existen dos formas de manejar el optional chaining
+*/
+
+// Para el tema del Optional Chaining, existen varias formas de controlar a lo que se puede acceder de un objeto y a lo que no.
+
+// La primera forma es predefinir en el "type" que se está creando, la propiedad a la que necesitemos que no se pueda acceder para modificar, es decir, que sólo sea de lectura.
+
+// Existe un problema con esta forma de manejar el modo de sólo lectura de una propiedad de un objeto, y es que al momento de compilar  el código de TS a JS no "transifere"
+// la orden de que sea sólo de lectura la propiedad en concreto, la pasa por alto y el código de JS sí permite que se pueda modificar.
 
 type HeroIII = {
-    id?: number,
+    readonly id?: number,
     name: string,
     age: number,
     isActive?: boolean
@@ -315,13 +328,163 @@ function createHero5(hero: HeroIII): HeroIII {
 }
 
 const naruto = createHero5({name:'Naruto', age:30})
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING:\nHéroe se llama "${naruto.name}". Su edad es ${naruto.age}. Estado Activo: ${naruto.isActive}`);
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING (readonly):\nHéroe se llama "${naruto.name}". Su edad es ${naruto.age}. Estado Activo: ${naruto.isActive}`);
+
+//! naruto.id = 'Hola' <--- En compilación JS permite realizar las modificaciones pasando por alto el readonly de previamente configurado del type de este objeto.
+
+// La segunda forma es utilizando el método para objetos Object.freeze(). Este método es directo de JS, así que al momento de compilar y pasar de TS a JS, el objeto
+// entero será sólo de lectura (sea inmutable).
+
+type HeroIV = {
+    id?: number,
+    name: string,
+    age: number,
+    isActive?: boolean
+};
+
+function createHero6(hero: HeroIV): HeroIV {
+    const { name, age } = hero
+    return { name, age, isActive: true}
+}
+
+const luffy = Object.freeze(createHero6({name:'Luffy', age:20}));
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING (Object.freeze()):\nHéroe se llama "${luffy.name}". Su edad es ${luffy.age}. Estado Activo: ${luffy.isActive}`);
+
+//! luffy.age= 19; <---- Este código al igual que en la primera forma arroja un error, la diferencia está en que al momento de compilarlo a JS éste seguirá igualmente allí.
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Inferencia con Union Type, Template Union Type e Intersection Types:
+
 
 /* 
-* Optional Chaining
-El "optional chaining" (encadenamiento opcional) es una característica introducida en TypeScript y en otros lenguajes de programación como JavaScript para
-tratar con propiedades anidadas en objetos y evitar errores cuando una propiedad en la cadena de acceso puede ser nula o indefinida.
 
-En situaciones normales, cuando intentas acceder a una propiedad anidada en un objeto y alguna de las propiedades en la cadena de acceso es nula o indefinida, se producirá un error de tipo "Cannot read property 'propiedad' of null/undefined". El "optional chaining" resuelve este problema al permitirte acceder a propiedades anidadas de forma segura, evitando estos errores.
+* Union Type:
+Te permite definir un tipo que puede ser uno de varios tipos posibles. En otras palabras, puedes combinar varios tipos en uno solo y una variable 
+de este tipo puede contener un valor de cualquiera de los tipos especificados. Se definen utilizando el operador de tubería | entre los tipos.
+
+* Template Union Type:
+Son una característica específica de TypeScript que se introdujo en la versión 4.1. Te permiten crear tipos que son combinaciones específicas de 
+cadenas literales (template literals). Esto es especialmente útil cuando deseas definir un tipo que acepta solo ciertos valores específicos en 
+un patrón determinado.
+
+* Intersection Types:
+Es un concepto que te permite combinar varios tipos en uno solo, de manera que el nuevo tipo resultante contenga todas las propiedades y características 
+de los tipos originales. En otras palabras, un tipo de intersección representa un conjunto de propiedades y métodos que existen en todos los tipos 
+intersecados.
 
 */
+
+//* Template Union Type
+
+type HeroID = `${string}-${string}-${string}-${string}-${string}`;
+
+type HeroPowerScale = 'local' | 'planetary' | 'galactic' | 'universal' | 'multiversal';
+
+type HeroBasicInfo = {
+    name: string,
+    age: number,
+}
+
+type HeroProperties = {
+    readonly id?: HeroID,    
+    isActive?: boolean,
+    powerScale?: HeroPowerScale
+}
+
+type HeroV = HeroBasicInfo & HeroProperties;
+
+function createHero7(input: HeroBasicInfo): HeroV {
+    const { name, age } = input
+    return { 
+        id: crypto.randomUUID(),
+        name, 
+        age, 
+        isActive: true,
+        powerScale:'multiversal'
+    }
+}
+
+const kaido = createHero7({name:'Kaido',age:75})
+
+console.log(`\nINFERENCIA PARA OBJETOS CON TEMPLATE UNION TYPE E INTERSECTION TYPE:\nID del Héroe: "${kaido.id}". Héroe se llama: "${kaido.name}". Su edad es: ${kaido.age}. Estado Activo: ${kaido.isActive}. Escala de Poder: ${kaido.powerScale}.`);
+
+
+//* UNION TYPE
+
+const enableAnimationDurationI: boolean | number = 200; // 200ms
+const enableAnimationDurationII: boolean | number = true; // if true return 200ms
+
+console.log(`\nINFERENCIA PARA OBJETOS CON UNION TYPE:\nIndicando la duración de la animación directamente: ${enableAnimationDurationI}. Indicando la activación de la duración ya previamente definida: ${enableAnimationDurationII}`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Inferencia con Type Indexing:
+
+/* 
+
+TypeScript se refiere a la capacidad de acceder a propiedades de un tipo utilizando un tipo de índice. Esto es similar a cómo accedes a los elementos 
+de un array o las propiedades de un objeto mediante su clave.
+
+*/
+
+type HeroPropertiesII = {
+    isActive: boolean,
+    address: {
+        planet: string,
+        city: string
+    }
+}
+
+const addressHero: HeroPropertiesII['address'] = {
+    planet:"Earth",
+    city:"New York"
+}
+
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE INDEXING:\nPlaneta del Héroe: ${addressHero.planet}. Ciudad del Héroe: ${addressHero.city}`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Inferencia con Type from:
+
+// Es la capacidad que tiene Typescript de indicar que una nueva variable o tipo de dato, será idéntico al que le estamos pasando como referencia.
+
+//* Básico (from Value):
+
+const address = {
+    planet: 'Earth',
+    city: 'Wisconsin'
+}
+
+type AddressI = typeof address;
+
+const addressShowI: AddressI = {
+    planet: 'Earth',
+    city: 'Medellín'
+}
+
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE FROM (Value):\nPlaneta: ${addressShowI.planet}. Ciudad: ${addressShowI.city}`);
+
+//* Avanzado (from Function Return):
+
+function createAddress(){
+    return {
+        planet: 'Earth',
+        city: 'Barcelona'
+    }
+}
+
+type AddressII = ReturnType<typeof createAddress>
+
+const addressShowII: AddressII = {
+    planet: 'Earth',
+    city: 'París'
+}
+
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE FROM (Return Function):\nPlaneta type de Muestra: ${createAddress().planet}. Ciudad type de Muestra: ${createAddress().city}. Planeta type Utilizado: ${addressShowII.planet}. Ciudad type Utilizada: ${addressShowII.city}`);
