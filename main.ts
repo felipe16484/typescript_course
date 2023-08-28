@@ -292,4 +292,36 @@ function createHero4(hero: HeroII): HeroII {
 }
 
 const blackwidow = createHero4({name:'Blackwidow',age:45})
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL PROPERTIES:\nHéroe se llama ${blackwidow.name}. Su edad es ${blackwidow.age}. ¿Está activo?: ${blackwidow.isActive}`);
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL PROPERTIES:\nHéroe se llama "${blackwidow.name}". Su edad es ${blackwidow.age}. Estado Activo: ${blackwidow.isActive}`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Inferencia para Objetos con Type Alias, Destructuring y Optional Properties:
+
+// Existen dos formas de manejar el optional chaining
+
+type HeroIII = {
+    id?: number,
+    name: string,
+    age: number,
+    isActive?: boolean
+};
+
+function createHero5(hero: HeroIII): HeroIII {
+    const { name, age } = hero
+    return { name, age, isActive: true}
+}
+
+const naruto = createHero5({name:'Naruto', age:30})
+console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING:\nHéroe se llama "${naruto.name}". Su edad es ${naruto.age}. Estado Activo: ${naruto.isActive}`);
+
+/* 
+* Optional Chaining
+El "optional chaining" (encadenamiento opcional) es una característica introducida en TypeScript y en otros lenguajes de programación como JavaScript para
+tratar con propiedades anidadas en objetos y evitar errores cuando una propiedad en la cadena de acceso puede ser nula o indefinida.
+
+En situaciones normales, cuando intentas acceder a una propiedad anidada en un objeto y alguna de las propiedades en la cadena de acceso es nula o indefinida, se producirá un error de tipo "Cannot read property 'propiedad' of null/undefined". El "optional chaining" resuelve este problema al permitirte acceder a propiedades anidadas de forma segura, evitando estos errores.
+
+*/
