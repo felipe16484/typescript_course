@@ -1,6 +1,6 @@
 # Curso de Typescript
 
-¿Qué es Typescript?
+> ¿Qué es Typescript?
 
 Es un lenguaje de programación que está basado Javascript, pero lo que hace es añadirle a éste último es un tipado más fuerte y robustés a la hora de desarrollar un proyecto grande. 
 Lo que finalmente llega al navegador es el código que se compila de typescript transformado a Javascript. 
