@@ -60,3 +60,4 @@ type Empleado = Persona & {
 
 >Notas:
 - Hay que tener presente de que TypeScript no funciona en entornos de ejecución. Lo que se ejecuta es la compilación del código realizado en TypeScript a JavaScript, es decir, se transforma el archivo .ts a .js y éste último es el que se ejecuta.
+- Utilizar de forma nativa la extensión '.ts' en un archivo TypeScript está indicando que no permitirá la utilización de las funcionalidades para importar o exportar (import / export). Si estamos utilizando empaquetadores como por ejemplo 'Vite', éste mismo ya hace toda la configuración para que se puedan realizar estas funciones. La forma correcta para 'crear' desde 0 un archivo Typescript y poder hacer uso de las funcionalidades import y export es utilizando la extesión '.mts' para los archivos.

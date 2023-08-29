@@ -676,3 +676,27 @@ mostrarMensajeErrorIII(ERROR_TYPESTS.UNAUTHORIZED);
 
 //? Aserciones de Tipos:
 
+// Muchas veces al momento de referenciar elementos HTML el mismo TypeScript no es capaz de generar la inferencia para reconocer estos elementos.
+// Para ello se utilizan las aserciones de tipos, aunque tienen una definición más amplia la cual indica que le permite al compilador saber el tipo 
+// de una variable.
+
+// Uno de los mejores ejemplos que pueden tener las aserciones de tipos es al momento en el cual estamos referenciando elementos HTML en nuestro
+// código typescript.
+
+/* 
+
+const canvas = document.getElementById('canvas');
+
+if (canvas instanceof HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d');
+    console.log('Entra al condicional.')
+} 
+
+*/
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Aserciones Fetching:
+
