@@ -31,7 +31,7 @@ let cadena = 'Hola';
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Functiones:
+//? Inferencia para Funciones:
 // La inferencia de typescript cuenta con un límite. Ésto lo podemos observar principalmente al momento de 
 // hacer uso de funciones. Los parámetros siempre quedarán definidos por defecto con el tipo "any" a no ser
 // de que manualmente se le settee el tipo de dato que necesitemos.
@@ -53,7 +53,7 @@ saludar('Felipe');
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Objetos como Parámetros de una Función:
+//? Objetos como Parámetros de una Función:
 
 //! ({name: string,age: number})
 // Esta sintaxis de objetos como parámetros no es permitida porque entra en colisión con Javascript y su permiso
@@ -61,14 +61,14 @@ saludar('Felipe');
 
 //* Forma 1: 
 function saludar2({name,age}: {name: string, age: number}){
-    console.log(`\nINFERENCIA PARA OBJETOS COMO PARÁMETROS DE UNA FUNCIÓN (Forma 1):\nHola ${name}, tienes ${age} años.`);
+    console.log(`\nOBJETOS COMO PARÁMETROS DE UNA FUNCIÓN (Forma 1):\nHola ${name}, tienes ${age} años.`);
 }
 saludar2({name:'Felipe',age:76});
 
 //* Forma 2: 
 function saludar3(persona: {name: string, age: number}){
     const { name, age } = persona;
-    console.log(`\nINFERENCIA PARA OBJETOS COMO PARÁMETROS DE UNA FUNCIÓN (Forma 2):\nHola ${name}, tienes ${age} años.`);
+    console.log(`\nOBJETOS COMO PARÁMETROS DE UNA FUNCIÓN (Forma 2):\nHola ${name}, tienes ${age} años.`);
 }
 saludar3({name:'Felipe',age:76});
 
@@ -76,7 +76,7 @@ saludar3({name:'Felipe',age:76});
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Tipo de Dato de Retorno:
+//? Tipo de Dato de Retorno:
 // La sintaxis propone indicar los tipos de datos de los parámetros que son un objeto y después el tipo de dato que espera retornar una función.
 
 function saludar4({name,age}: {name: string, age: number}) : number{
@@ -85,13 +85,13 @@ function saludar4({name,age}: {name: string, age: number}) : number{
 
 const saludar4Age = saludar4({name:'Felipe',age:76});
 
-console.log(`\nINFERENCIA PARA TIPO DE DATO DEL RETURN DE UNA FUNCIÓN:\nEdad extraída de la función: ${saludar4Age}.`);
+console.log(`\nTIPO DE DATO DEL RETURN DE UNA FUNCIÓN:\nEdad extraída de la función: ${saludar4Age}.`);
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Funciones que Reciben Funciones como Parámetros (Callbacks):
+//? Funciones que Reciben Funciones como Parámetros (Callbacks):
 // Al momento de realizar este procedimiento se debe tener en cuenta que no se puede definir el tipo Function para el parámetro "fn" puesto que al
 // igual que el resto de los tipos de datos, éste sería el "any" para funciones.
 
@@ -102,7 +102,7 @@ console.log(`\nINFERENCIA PARA TIPO DE DATO DEL RETURN DE UNA FUNCIÓN:\nEdad ex
 !}
 
 !sayHiFromFunction((name)=> {
-!    console.log(`\nINFERENCIA PARA FUNCIONES QUE RECIBEN FUNCIONES COMO PARÁMETRO (Callback):\nHola ${name}`)
+!    console.log(`\nFUNCIONES QUE RECIBEN FUNCIONES COMO PARÁMETRO (Callback):\nHola ${name}`)
 !})
 
 */
@@ -119,7 +119,7 @@ const sayHiFromFunction = (fn: (name: string) => string) => {
 // en los parámetros de la anterior, es decir, que tenga un parámetro que se llame "name" y éste sea de tipo string, y que no devuelva nada/no importa 
 // si devuelve algo.
 const sayHi = (name: string) => {
-    let cadena = `\nINFERENCIA PARA FUNCIONES QUE RECIBEN FUNCIONES COMO PARÁMETRO (Callback):\nHolaqweqwe ${name}.`;
+    let cadena = `\nFUNCIONES QUE RECIBEN FUNCIONES COMO PARÁMETRO (Callback):\nHolaqweqwe ${name}.`;
     return cadena;
 }
 
@@ -138,7 +138,7 @@ const sayHiFromFunction = (fn: (name: string) => string) => {
     return fn('Felipe');
 }
 const sayHi = (name: string) => {
-    let cadena = `\nINFERENCIA PARA FUNCIONES QUE RECIBEN FUNCIONES COMO PARÁMETRO (Callback):\nHolaqweqwe ${name}.`;
+    let cadena = `\nFUNCIONES QUE RECIBEN FUNCIONES COMO PARÁMETRO (Callback):\nHolaqweqwe ${name}.`;
     return cadena;
 }
 console.log(sayHiFromFunction(sayHi)); 
@@ -148,7 +148,7 @@ console.log(sayHiFromFunction(sayHi));
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia en el Tipado de Arrow Functions:
+//? Tipado de Arrow Functions:
 // De la misma manera que se trataron los ejemplos anteriores, el tipado de una arrow function sugiere dos formas de aplicarse:
 
 // La primera es que se coloquen directamente en los parámetros el tipo de dato que se desea para cada uno, al igual que el tipo de dato que espera
@@ -156,14 +156,14 @@ console.log(sayHiFromFunction(sayHi));
 const sumar = (a: number, b: number): number => {
     return a + b;
 }
-console.log(`\nINFERENCIA DEL TIPADO DE ARROW FUNCTIONS (Forma 1):\nEl resultado de la operación es: ${sumar(5,7)}`);
+console.log(`\nTIPADO DE ARROW FUNCTIONS (Forma 1):\nEl resultado de la operación es: ${sumar(5,7)}`);
 
 // La segunda indica, después del nombre de la variable, indicar el tipo de dato de los parámetros, el tipo de dato que retornará y por último la arrow
 // function.
 const restar: (a: number, b: number) => number = (a,b) => {
     return a - b;
 }
-console.log(`\nINFERENCIA DEL TIPADO DE ARROW FUNCTIONS (Forma 2):\nEl resultado de la operación es: ${restar(5,7)}`);
+console.log(`\nTIPADO DE ARROW FUNCTIONS (Forma 2):\nEl resultado de la operación es: ${restar(5,7)}`);
 
 //* Cabe recalcar que para estos ejemplos, al ser sumas y restas de un mismo tipo de dato (number), no es necesario colocar el tipo de dato que retornarán
 //* las funciones puesto que al ser operaciones matemáticas la inferencia de typescript sabrá que se devolverá un "number".
@@ -172,7 +172,7 @@ console.log(`\nINFERENCIA DEL TIPADO DE ARROW FUNCTIONS (Forma 2):\nEl resultado
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Funciones que Nunca Devolverán Nada (Uso del "never"):
+//? Funciones que Nunca Devolverán Nada (Uso del "never"):
 
 // El tipo de dato "never" se utiliza para funciones que no devolverán nada en su ejecución. És importante principalmente utilizado para evitar problemas
 // al intentar guardar alguna variable
@@ -185,9 +185,9 @@ function throwError(message: string): never {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Funciones Anónimas según el Contexto:
+//? Funciones Anónimas según el Contexto:
 
-console.log(`\nINFERENCIA PARA FUNCIONES ANÓNIMAS SEGÚN EL CONTEXTO:`)
+console.log(`\nFUNCIONES ANÓNIMAS SEGÚN EL CONTEXTO:`)
 
 const avengers = ['Spidey', 'Hulk', 'Hawkeye', 'Ironman'];
 // En este caso tenemos un contexto el cual nos indica que vamos a estar recorriendo un array de strings, por lo tanto al momento de crear el forEach
@@ -203,9 +203,9 @@ avengers.forEach(function (avenger) {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Objetos:
+//? Objetos:
 
-// La inferencia para los objetos nos limita a que tengamos una especie de "contrato" con ellos, es decir, no podemos modificar con otro tipo de dato
+// La los objetos nos limita a que tengamos una especie de "contrato" con ellos, es decir, no podemos modificar con otro tipo de dato
 // una propiedad que ya tenga otro y no podremos intentar crear propiedades accediendo a ellas fuera del bloque del objeto.
 let hero = {
     name: 'Thor',
@@ -220,13 +220,13 @@ function createHero(name: string, age: number) {
 
 const thor = createHero('Thor',1500);
 
-console.log(`\nINFERENCIA PARA OBJETOS:\nHéroe se llama ${thor.name}. Su edad es ${thor.age}.`);
+console.log(`\nOBJETOS:\nHéroe se llama ${thor.name}. Su edad es ${thor.age}.`);
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Objetos con Type Alias:
+//? Objetos con Type Alias:
 
 // Los nombres de los Type Alias siempre deben ir en Pascal Case. Son utilizados para darles plantillas fijas a los objetos los cuales necesitamos
 // que sean de un mismo tipo o que lleven una misma estructura, por lo tanto los Type Alias son eso, generadores de estructuras a través de tipos 
@@ -251,13 +251,13 @@ function createHero2(name: string, age: number): Hero {
 
 const hulk = createHero2('Hulk',250);
 
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS:\nHéroe se llama ${hulk.name}. Su edad es ${hulk.age}.`);
+console.log(`\nOBJETOS CON TYPE ALIAS:\nHéroe se llama ${hulk.name}. Su edad es ${hulk.age}.`);
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Objetos con Type Alias y Destructuring:
+//? Objetos con Type Alias y Destructuring:
 
 // En el momento en el cual se crea una función la cual crea objetos de un mismo tipo, los parámetros que ésta recibe son los mismos que tiene
 // la plantilla del tipo que creamos anteriormente. Sin embargo podemos hacer uso de una sintaxis diferente para tratar la "ambiguedad" que se genera
@@ -270,13 +270,13 @@ function createHero3(hero: Hero): Hero {
 }
 // Para su ejecución lo único que debemos de tener en cuenta es que debemos mandar en los parámetros las propiedades que necesita la plantilla.
 const hawkeye = createHero3({name: 'Hawkeye', age: 440});
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS Y DESTRUCTURING:\nHéroe se llama ${hawkeye.name}. Su edad es ${hawkeye.age}.`);
+console.log(`\nOBJETOS CON TYPE ALIAS Y DESTRUCTURING:\nHéroe se llama ${hawkeye.name}. Su edad es ${hawkeye.age}.`);
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Inferencia para Objetos con Type Alias, Destructuring y Optional Properties:
+//? Objetos con Type Alias, Destructuring y Optional Properties:
 
 // Las optional propierties como su nombre lo indica son propiedades opcionales de los objetos tiene y no afecta si son usadas o no en la ejecución 
 // del código.
@@ -293,7 +293,7 @@ function createHero4(hero: HeroII): HeroII {
 }
 
 const blackwidow = createHero4({name:'Blackwidow',age:45})
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL PROPERTIES:\nHéroe se llama "${blackwidow.name}". Su edad es ${blackwidow.age}. Estado Activo: ${blackwidow.isActive}`);
+console.log(`\nOBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL PROPERTIES:\nHéroe se llama "${blackwidow.name}". Su edad es ${blackwidow.age}. Estado Activo: ${blackwidow.isActive}`);
 
 /* 
 
@@ -328,7 +328,7 @@ function createHero5(hero: HeroIII): HeroIII {
 }
 
 const naruto = createHero5({name:'Naruto', age:30})
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING (readonly):\nHéroe se llama "${naruto.name}". Su edad es ${naruto.age}. Estado Activo: ${naruto.isActive}`);
+console.log(`\nOBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING (readonly):\nHéroe se llama "${naruto.name}". Su edad es ${naruto.age}. Estado Activo: ${naruto.isActive}`);
 
 //! naruto.id = 'Hola' <--- En compilación JS permite realizar las modificaciones pasando por alto el readonly de previamente configurado del type de este objeto.
 
@@ -348,7 +348,7 @@ function createHero6(hero: HeroIV): HeroIV {
 }
 
 const luffy = Object.freeze(createHero6({name:'Luffy', age:20}));
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING (Object.freeze()):\nHéroe se llama "${luffy.name}". Su edad es ${luffy.age}. Estado Activo: ${luffy.isActive}`);
+console.log(`\nOBJETOS CON TYPE ALIAS, DESTRUCTURING Y OPTIONAL CHAINING (Object.freeze()):\nHéroe se llama "${luffy.name}". Su edad es ${luffy.age}. Estado Activo: ${luffy.isActive}`);
 
 //! luffy.age= 19; <---- Este código al igual que en la primera forma arroja un error, la diferencia está en que al momento de compilarlo a JS éste seguirá igualmente allí.
 
@@ -409,7 +409,7 @@ function createHero7(input: HeroBasicInfo): HeroV {
 
 const kaido = createHero7({name:'Kaido',age:75})
 
-console.log(`\nINFERENCIA PARA OBJETOS CON TEMPLATE UNION TYPE E INTERSECTION TYPE:\nID del Héroe: "${kaido.id}". Héroe se llama: "${kaido.name}". Su edad es: ${kaido.age}. Estado Activo: ${kaido.isActive}. Escala de Poder: ${kaido.powerScale}.`);
+console.log(`\nOBJETOS CON TEMPLATE UNION TYPE E INTERSECTION TYPE:\nID del Héroe: "${kaido.id}". Héroe se llama: "${kaido.name}". Su edad es: ${kaido.age}. Estado Activo: ${kaido.isActive}. Escala de Poder: ${kaido.powerScale}.`);
 
 
 //* UNION TYPE
@@ -417,7 +417,7 @@ console.log(`\nINFERENCIA PARA OBJETOS CON TEMPLATE UNION TYPE E INTERSECTION TY
 const enableAnimationDurationI: boolean | number = 200; // 200ms
 const enableAnimationDurationII: boolean | number = true; // if true return 200ms
 
-console.log(`\nINFERENCIA PARA OBJETOS CON UNION TYPE:\nIndicando la duración de la animación directamente: ${enableAnimationDurationI}. Indicando la activación de la duración ya previamente definida: ${enableAnimationDurationII}`);
+console.log(`\nOBJETOS CON UNION TYPE:\nIndicando la duración de la animación directamente: ${enableAnimationDurationI}. Indicando la activación de la duración ya previamente definida: ${enableAnimationDurationII}`);
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -445,7 +445,7 @@ const addressHero: HeroPropertiesII['address'] = {
     city:"New York"
 }
 
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE INDEXING:\nPlaneta del Héroe: ${addressHero.planet}. Ciudad del Héroe: ${addressHero.city}`);
+console.log(`\nOBJETOS CON TYPE INDEXING:\nPlaneta del Héroe: ${addressHero.planet}. Ciudad del Héroe: ${addressHero.city}`);
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -469,7 +469,7 @@ const addressShowI: AddressI = {
     city: 'Medellín'
 }
 
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE FROM (Value):\nPlaneta: ${addressShowI.planet}. Ciudad: ${addressShowI.city}`);
+console.log(`\nOBJETOS CON TYPE FROM (Value):\nPlaneta: ${addressShowI.planet}. Ciudad: ${addressShowI.city}`);
 
 //* Avanzado (from Function Return):
 
@@ -487,4 +487,108 @@ const addressShowII: AddressII = {
     city: 'París'
 }
 
-console.log(`\nINFERENCIA PARA OBJETOS CON TYPE FROM (Return Function):\nPlaneta type de Muestra: ${createAddress().planet}. Ciudad type de Muestra: ${createAddress().city}. Planeta type Utilizado: ${addressShowII.planet}. Ciudad type Utilizada: ${addressShowII.city}`);
+console.log(`\nOBJETOS CON TYPE FROM (Return Function):\nPlaneta type de Muestra: ${createAddress().planet}. Ciudad type de Muestra: ${createAddress().city}. Planeta type Utilizado: ${addressShowII.planet}. Ciudad type Utilizada: ${addressShowII.city}`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Arrays:
+
+// Si definimos de una forma convencional un array, Typescript lo va a tomar como un type "never", es decir, que nunca tendrá nada. Ejemplo:
+
+/* 
+! Type: "never".
+const languages = [];
+
+! Argumento de tipo "string" no es asignable en un tipo "never"
+languages.push('JavaScript'); 
+*/
+
+// Existen 2 formas de darle el tipo de dato a un Array:
+
+//* Forma 1:
+const languagesI: string[] = [];
+
+//* Forma 2:
+const languagesII: Array<string> = [];
+
+// Así mismo existen dos formas de indicar que el array puede recibir más de dos tipos de datos:
+
+//* Forma 1:
+const languagesIII: (string | number)[] = [];
+
+languagesIII.push('Python');
+languagesIII.push(25);
+//! languagesIII.push(true); <--- Devuelve error puesto que no se le ha indicado que este tipo de dato lo recibirá el array.
+
+console.log(`\nARRAYS (Multi Type Form):\n${languagesIII}`);
+
+//* Forma 2:
+const languagesIV: Array<(string | number)> = [];
+
+languagesIV.push('C#');
+languagesIV.push(25);
+//! languagesIV.push(true); <--- Devuelve error puesto que no se le ha indicado que este tipo de dato lo recibirá el array.
+
+console.log(`\nARRAYS (Multi Type Form):\n${languagesIV}`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Arrays con Types para Objetos:
+
+// En este caso podemos observar cómo puede crearse un array con un type custom para objetos.
+
+type ExampleArrayBasicInfo = {
+    id?: string | number,
+    name: string,
+    age: number
+}
+
+const peopleBasicInfo: ExampleArrayBasicInfo[] = [];
+
+peopleBasicInfo.push({id:1,name:'Felipe',age:25})
+
+console.log(`\nARRAYS (con types de Objetos):\nID: ${peopleBasicInfo[0].id}, Nombre: ${peopleBasicInfo[0].name}, Edad: ${peopleBasicInfo[0].age}.`);
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Matríces y Tuplas:
+
+// En este ejercicio se está haciendo uso de diferentes herramientas/temas que se han visto en partes anteriores, convirtiéndolo en un ejemplo robusto 
+// de un uso más avanzado de typescript.
+
+// Primeramente parametrizamos el tipo de datos que van a recibir las celdas, es decir, cada una de las posiciones de los arrays.
+type CellValue = 'X' | 'O' | ''
+
+// Segundo parametrizamos el tipo de dato que llevará el Game Board. Indicamos que va a ser un array que dentro de él tendrá 3 array con 3 posiciones
+// cada uno y que estas 3 posiciones serán datos parametrizados con CellValue previamente creado.
+type GameBoard = [
+    [CellValue, CellValue, CellValue],
+    [CellValue, CellValue, CellValue],
+    [CellValue, CellValue, CellValue]
+]
+
+// Por último creamos el array final con los parámetros establecidos en los types creados anteriormente.
+const gameBoard: GameBoard = [
+    ['O','X','O'],
+    ['X','X','X'],
+    ['X','O','X'],
+]
+
+/* gameBoard.forEach((value) => {
+    value.forEach(i=>{
+        console.log(i)
+    })
+    console.log('\n')
+}) */
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Matríces y Tuplas:
