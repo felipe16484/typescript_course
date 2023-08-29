@@ -700,3 +700,432 @@ if (canvas instanceof HTMLCanvasElement) {
 
 //? Aserciones Fetching:
 
+/* export type GithubAPIResponse = {
+    total_count:        number;
+    incomplete_results: boolean;
+    items:              Item[];
+}
+
+export type Item = {
+    id:                          number;
+    node_id:                     string;
+    name:                        string;
+    full_name:                   string;
+    private:                     boolean;
+    owner:                       Owner;
+    html_url:                    string;
+    description:                 null | string;
+    fork:                        boolean;
+    url:                         string;
+    forks_url:                   string;
+    keys_url:                    string;
+    collaborators_url:           string;
+    teams_url:                   string;
+    hooks_url:                   string;
+    issue_events_url:            string;
+    events_url:                  string;
+    assignees_url:               string;
+    branches_url:                string;
+    tags_url:                    string;
+    blobs_url:                   string;
+    git_tags_url:                string;
+    git_refs_url:                string;
+    trees_url:                   string;
+    statuses_url:                string;
+    languages_url:               string;
+    stargazers_url:              string;
+    contributors_url:            string;
+    subscribers_url:             string;
+    subscription_url:            string;
+    commits_url:                 string;
+    git_commits_url:             string;
+    comments_url:                string;
+    issue_comment_url:           string;
+    contents_url:                string;
+    compare_url:                 string;
+    merges_url:                  string;
+    archive_url:                 string;
+    downloads_url:               string;
+    issues_url:                  string;
+    pulls_url:                   string;
+    milestones_url:              string;
+    notifications_url:           string;
+    labels_url:                  string;
+    releases_url:                string;
+    deployments_url:             string;
+    created_at:                  Date;
+    updated_at:                  Date;
+    pushed_at:                   Date;
+    git_url:                     string;
+    ssh_url:                     string;
+    clone_url:                   string;
+    svn_url:                     string;
+    homepage:                    null | string;
+    size:                        number;
+    stargazers_count:            number;
+    watchers_count:              number;
+    language:                    Language | null;
+    has_issues:                  boolean;
+    has_projects:                boolean;
+    has_downloads:               boolean;
+    has_wiki:                    boolean;
+    has_pages:                   boolean;
+    has_discussions:             boolean;
+    forks_count:                 number;
+    mirror_url:                  null;
+    archived:                    boolean;
+    disabled:                    boolean;
+    open_issues_count:           number;
+    license:                     License | null;
+    allow_forking:               boolean;
+    is_template:                 boolean;
+    web_commit_signoff_required: boolean;
+    topics:                      string[];
+    visibility:                  Visibility;
+    forks:                       number;
+    open_issues:                 number;
+    watchers:                    number;
+    default_branch:              DefaultBranch;
+    score:                       number;
+}
+
+export enum DefaultBranch {
+    Dev = "dev",
+    Main = "main",
+    Master = "master",
+}
+
+export enum Language {
+    HTML = "HTML",
+    JavaScript = "JavaScript",
+    ObjectiveC = "Objective-C",
+    TypeScript = "TypeScript",
+}
+
+export type License = {
+    key:     string;
+    name:    string;
+    spdx_id: string;
+    url:     null | string;
+    node_id: string;
+}
+
+export type Owner = {
+    login:               string;
+    id:                  number;
+    node_id:             string;
+    avatar_url:          string;
+    gravatar_id:         string;
+    url:                 string;
+    html_url:            string;
+    followers_url:       string;
+    following_url:       string;
+    gists_url:           string;
+    starred_url:         string;
+    subscriptions_url:   string;
+    organizations_url:   string;
+    repos_url:           string;
+    events_url:          string;
+    received_events_url: string;
+    type:                Type;
+    site_admin:          boolean;
+}
+
+export enum Type {
+    Organization = "Organization",
+    User = "User",
+}
+
+export enum Visibility {
+    Public = "public",
+}
+
+async function fetchData() {
+    const API_URL = "https://api.github.com/search/repositories?q=javascript";
+    
+    try {
+        const response = await fetch(API_URL);
+        
+        if (!response.ok) {
+            throw new Error('Request failed');
+        }
+        
+        const data = await response.json();
+        const repos = data.items.map(repo => {
+            return {
+                name: repo.name,
+                id: repo.id,
+                url: repo.html_url
+            };
+        });
+
+        return repos;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+async function main() {
+    const repositories = await fetchData();
+    console.log('GitHub repositories:', repositories);
+    console.log(`Count ${repositories.length}`);
+}
+
+main(); */
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Interfaces:
+
+// En el readme se encuentra una definición un poco más generalizada de la diferencia de las interfaces y los types. Acá resumidamente, por medio 
+// los ejemplos nos damos cuenta que las interfaces tienen las mismas posibilidades que los types, la diferencia nace en el momento de extender
+// una interface y mezclar un type.
+
+// Definimos el "contrato" que llevará la variable.
+interface Producto {
+    id: number,
+    nombre: string,
+    precio: number,
+    quantity: number
+}
+
+// Acá podemos observar un ejemplo de lo mencionado en el párrafo inicial de este tema. Las interfaces a diferencia de los types que se tienen
+// que mezclar para poderlos utilizar juntos se pueden extender, es decir, ya estamos aplicando todas las propiedades 
+interface Zapatilla extends Producto {
+    talla: number
+}
+
+interface CarritoDeCompras {
+    totalPrice: number,
+    productos: Zapatilla[] //! POR QUÉ NO PUEDE GENERAR LOS UNION TYPE
+}
+
+const carrito: CarritoDeCompras = {
+    totalPrice: 100,
+    productos: [
+        {
+            id:1,
+            nombre:'Zapato',
+            precio:25,
+            quantity:34,
+            talla:68
+        }
+    ]
+}
+
+console.log(`\nINTERFACES E INTERFACES EXTENDIDAD:\nPrecio Total del Carrito: ${carrito.totalPrice}. Producto/os:\nID: ${carrito.productos[0].id}. Nombre: ${carrito.productos[0].nombre}. Precio: ${carrito.productos[0].precio}. Cantidad: ${carrito.productos[0].quantity}. Talla: ${carrito.productos[0].talla}.`)
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Interfaces con Funciones:
+
+// Existen dos formas de crear las funciones dentro de las interfaces.
+
+//* Forma 1:
+
+interface CarritoOps {
+    add: (product: Producto) => void
+    remove: (id: number) => void
+    clear: () => void
+}
+
+//* Forma 2:
+
+/* 
+interface CarritoOps {
+    add(product: Producto): void
+    remove(id: number): void
+    clear(): void
+} 
+*/
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Narrowing (Propiedades Discriminantes):
+
+/* 
+
+Se refiere a la técnica mediante la cual el sistema de tipos del lenguaje se vuelve más específico en función de ciertas condiciones o 
+comprobaciones que se realizan en el código. Esto permite a TypeScript inferir con mayor precisión el tipo de una variable en un contexto particular
+y, en consecuencia, habilitar operaciones específicas que de otra manera podrían no ser seguras.
+
+*/
+
+//* Ejemplo básico:
+
+function mostrarLongitud (objeto: number | string) {
+    if (typeof objeto === 'string'){
+        return objeto.length
+    }
+    return objeto.toString().length
+}
+console.log(`\nNARROWING (Ejemplo Básico):\nCantidad Caracteres: ${mostrarLongitud(6767420)}`);
+
+//* Ejemplo más Avanzado 
+
+interface Mario {
+    company: 'Nintendo',
+    nombre: string,
+    saltar: () => void
+}
+
+interface Sonic {
+    company: 'Sega'
+    nombre: string,
+    correr: () => void
+}
+
+type PersonajeI = Mario | Sonic
+
+function jugar(personaje: PersonajeI){    
+    if (personaje.company === 'Nintendo' ){
+        personaje.saltar();
+        return
+    }
+
+    personaje.correr();
+}
+
+// En este ejemplo se puede demostrar de una manera más robusta la aplicación del narrowing a partir de dos interfaces que en términos generales
+// son iguales, lo único que las diferencian es que directamente se indica un value específico para la propiedad "company" y el nombre de la 
+// "acción" que realizan es diferente. Para este caso se optó por comparar por nombre de compañía y podemos ver que condicionando ésto último
+// TypeScript ya permite hacer uso del contrato de un personaje o el otro.
+
+//* Ejemplo con Type Guard:
+
+interface Naruto {
+    company: 'Masashi Kishimoto',
+    nombre: string,
+    chakra: () => void
+}
+
+interface Luffy {
+    company: 'Eiichiro Oda'
+    nombre: string,
+    haki: () => void
+}
+
+type PersonajeII = Naruto | Luffy
+
+function checkEleccion(personaje: PersonajeII): personaje is Luffy{
+    return (personaje as Luffy).haki !== undefined
+}
+
+function eleccion(personaje: PersonajeII){
+    if(checkEleccion(personaje)){
+        personaje.haki();
+        return
+    }else {
+        personaje.chakra();
+        return
+    }
+}
+
+// Como conclusión para este tipo de casos, es mejor evitarlos por el hecho de que se necesitan muchas más validaciones para poder llegar al mismo
+// punto del que se puede llegar construyendo las interfaces de una manera la cual se puedan diferenciar individualmente por algo que no sean 
+// los "Type Guard". Se deben utilizar cuando no quede de otra que llegar a ellos. 
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Tipo de Dato "never":
+
+// En este caso podemos observar cuando la inferencia de TypeScript directamente en un caso determinado aplica el tipo de dato "never" en una
+// situación en la cual se sabe que no existiría otro tipo de dato para ella.
+
+function fn (x: string | number) {
+    if(typeof x === 'string'){
+        x.toUpperCase();
+    }else if (typeof x === 'number'){
+        x.toFixed();
+    }else{
+        x // type "never"
+    }
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Instanceof para una Clase:
+
+class AvengerI {
+
+    //* Si no se coloca nada, por defecto las propiedades quedarán de tipo "public"
+    //* El tipo de propiedad "protected". No se puede acceder a ellas en instancias pero sí en clases que heredan 
+
+
+    readonly name: string //* Sólo lectura para esta propiedad utilizando "readonly".
+
+    // Existen dos formas de indicar que una propiedad es privada:
+    //* Forma 1: 
+    #powerScore: number //* En los momentos en los que se va a utilizar esta opción y se llame a la propiedad, siempre debe colocarse el "#"
+                        //* en cada una de ellas. Sí es transpilable.
+    //* Forma 2:
+    //private powerScore  //* Cuando se utiliza esta sintaxis y se utiliza esta propiedad no es necesario escribir nada más que el mismo nombre
+                          //* de ella. La cuestión mala es que no es transpilable y en el momento en el cual se hace el paso a código JS, la 
+                          //* propiedad no queda privada, hace la comprobación estática.
+
+    wonBattles: number = 75
+
+    constructor(name: string,powerScore: number){
+        this.name = name
+        this.#powerScore = powerScore
+    }
+
+    get fullName(){
+        return `${this.name}, de poder ${this.#powerScore}.`
+    }
+
+    set power(newPower: number){
+        if(newPower <= 100){
+            this.#powerScore = newPower
+        }else {
+            throw new Error('Power score cannot be more than 100')
+        }
+    }
+}
+
+const avenger = new AvengerI('Spidey',80);
+
+console.log(`Nombre del Avenger: ${avenger.name}. Nivel de Poder: ${avenger.wonBattles}`)
+
+//! Type 'number' has no callable assignments.
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Interface para una Clase:
+
+/* import { type IAvenger } from './types.js'
+
+class AvengerII implements IAvenger {
+
+    constructor(name: string,powerScore: number){
+        this.name = name
+        this.powerScore = powerScore
+    }
+
+    battle: (enemy: AvengerII, win: boolean) => void;
+
+    get fullName(){
+        return `${this.name}, de poder ${this.powerScore}.`
+    }
+
+    set power(newPower: number){
+        if(newPower <= 100){
+            this.powerScore = newPower
+        }else {
+            throw new Error('Power score cannot be more than 100')
+        }
+    }
+} */
