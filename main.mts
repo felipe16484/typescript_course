@@ -1106,9 +1106,14 @@ console.log(`Nombre del Avenger: ${avenger.name}. Nivel de Poder: ${avenger.wonB
 
 //? Interface para una Clase:
 
-/* import { type IAvenger } from './types.js'
+import { type IAvenger } from './types.js'
 
-class AvengerII implements IAvenger {
+/* class AvengerII implements IAvenger {
+
+    name: string,
+    powerScore: number,
+    wonBattles: number,
+    age: number
 
     constructor(name: string,powerScore: number){
         this.name = name
