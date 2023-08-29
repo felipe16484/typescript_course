@@ -55,3 +55,8 @@ type Persona = {
 type Empleado = Persona & {
   puesto: string;
 };
+
+---
+
+>Notas:
+- Hay que tener presente de que TypeScript no funciona en entornos de ejecución. Lo que se ejecuta es la compilación del código realizado en TypeScript a JavaScript, es decir, se transforma el archivo .ts a .js y éste último es el que se ejecuta.

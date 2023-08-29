@@ -591,4 +591,88 @@ const gameBoard: GameBoard = [
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-//? Matríces y Tuplas:
+//? Enums
+
+/* 
+
+Los enums en TypeScript son un tipo de datos que permiten definir un conjunto de constantes con nombre. Los enums permiten documentar la intención de 
+una variable o crear un conjunto de casos distintos. TypeScript proporciona enums numéricos y basados en cadenas. Los enums numéricos se definen usando 
+la palabra clave enum y pueden ser inicializados con un valor numérico o no inicializados. Los enums basados en cadenas se definen de manera similar a 
+los enums numéricos, pero cada miembro debe ser inicializado con una cadena literal.
+
+*/
+
+//! Forma incorrecta:
+
+function mostrarMensajeErrorI(tipoDeError: string){
+    if(tipoDeError === 'notFound'){
+        console.log('No se encuentra el recurso');
+    }else if (tipoDeError === 'unauthorized'){
+        console.log('No tiene permisos para realizar esta acción.');
+    }else if (tipoDeError === 'forbidden') {
+        console.log('No tienes permisos para acceder');
+    }
+}
+
+console.log(`\nENUMS JavaScript (Forma incorrecta):\nMensaje de Error:`);
+mostrarMensajeErrorI('notFound');
+
+
+//* Forma Correcta para JavaScript:
+
+const ERROR_TYPESJS = {
+    NOT_FOUND: 'notFound',
+    UNAUTHORIZED: 'unauthorized',
+    FORBIDDEN: 'forbidden'
+}
+
+function mostrarMensajeErrorII(tipoDeError: string){
+    if(tipoDeError === ERROR_TYPESJS.NOT_FOUND){
+        console.log('No se encuentra el recurso');
+    }else if (tipoDeError === ERROR_TYPESJS.UNAUTHORIZED){
+        console.log('No tiene permisos para realizar esta acción.');
+    }else if (tipoDeError === ERROR_TYPESJS.FORBIDDEN) {
+        console.log('No tienes permisos para acceder');
+    }
+}
+
+console.log(`\nENUMS JavaScript (Forma Correcta):\nMensaje de Error:`);
+mostrarMensajeErrorII(ERROR_TYPESJS.UNAUTHORIZED);
+
+//* Forma Correcta para Typescript:
+
+// En typescript se utilizan los enums para una colección de datos finitos. Al momento de definir un enum, cada una de las propiedades dentro de él
+// recibe una posición comenzando desde el 0 (es conveniente el no abusar de la cantidad de propiedades que se crean en un enum).
+
+//* Algo muy importante a tener en cuenta es que al momento de definir el enum, es muy recomendable, por temas de código JS generado después de la 
+//* compilación, el hecho de colocarle un tipo 
+
+enum ERROR_TYPESTS{
+    NOT_FOUND,
+    UNAUTHORIZED,
+    FORBIDDEN
+}
+
+function mostrarMensajeErrorIII(tipoDeError: ERROR_TYPESTS){
+    if(tipoDeError === ERROR_TYPESTS.NOT_FOUND){
+        console.log('No se encuentra el recurso');
+    }else if (tipoDeError === ERROR_TYPESTS.UNAUTHORIZED){
+        console.log('No tiene permisos para realizar esta acción.');
+    }else if (tipoDeError === ERROR_TYPESTS.FORBIDDEN) {
+        console.log('No tienes permisos para acceder');
+    }
+}
+
+console.log(`\nENUMS Typescript (Forma Correcta):\nMensaje de Error:`);
+mostrarMensajeErrorIII(ERROR_TYPESTS.UNAUTHORIZED);
+
+//* El uso del const en el enum varía dependiendo de los casos. Se utiliza en la mayoría de ocasiones para no generar código de más al momento de la 
+//* compilación a JavaScript. Pero se utiliza el enum sin el const cuando se quiere que el objeto que se generó con el enum se consuma fuera del proyecto,
+//* es más recomendable que no lo lleve. Resumidamente, depende del caso de uso.
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+
+//? Aserciones de Tipos:
+
