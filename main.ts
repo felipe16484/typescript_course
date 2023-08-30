@@ -711,7 +711,7 @@ if (canvas instanceof HTMLCanvasElement) {
 
 //? Aserciones Fetching:
 
-/* export type GithubAPIResponse = {
+export type GithubAPIResponse = {
     total_count:        number;
     incomplete_results: boolean;
     items:              Item[];
@@ -851,18 +851,15 @@ export enum Visibility {
     Public = "public",
 }
 
+import axios from 'axios';
+
 async function fetchData() {
     const API_URL = "https://api.github.com/search/repositories?q=javascript";
     
     try {
-        const response = await fetch(API_URL);
+        const response = await axios.get(API_URL);
         
-        if (!response.ok) {
-            throw new Error('Request failed');
-        }
-        
-        const data = await response.json();
-        const repos = data.items.map(repo => {
+        const repos = response.data.items.map((repo: Item) => {
             return {
                 name: repo.name,
                 id: repo.id,
@@ -880,10 +877,9 @@ async function fetchData() {
 async function main() {
     const repositories = await fetchData();
     console.log('GitHub repositories:', repositories);
-    console.log(`Count ${repositories.length}`);
 }
 
-main(); */
+main();
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
