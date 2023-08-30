@@ -1,3 +1,14 @@
+//* Al ser un módulo que se puede utilizar sólo con la instalación de node en el S.O, se puede uitlizar sin necesidad instalarlo por medio de 
+//* gestionadores de paquetes. La cuestión está en que si se importa genera una advertencia de error mencionando que no se encuentra el 
+//* módulo a pesar de que no genere errores al momento de transpilar de '.ts' a '.js' y correr el código '.js', ésto se debe a que el IDE
+//* no encuentra una carpeta en la que se encuentre este módulo puesto que hay ciertos módulos que vienen previamente instalados con el node.
+
+//? npm install -D @types/node
+/* 
+ "npm install -D @types/node" instala los tipos de TypeScript para el módulo Node.js como una dependencia de desarrollo en un proyecto Node.js 
+ que utiliza TypeScript para mejorar la verificación y autocompletado de código.
+*/
+
 import * as crypto from 'crypto';
 
 //? Importante:
@@ -900,7 +911,7 @@ interface Zapatilla extends Producto {
 
 interface CarritoDeCompras {
     totalPrice: number,
-    productos: Zapatilla[] //! POR QUÉ NO PUEDE GENERAR LOS UNION TYPE
+    productos: Zapatilla[]
 }
 
 const carrito: CarritoDeCompras = {
@@ -915,8 +926,9 @@ const carrito: CarritoDeCompras = {
         }
     ]
 }
+let prueba: string | number
 
-console.log(`\nINTERFACES E INTERFACES EXTENDIDAD:\nPrecio Total del Carrito: ${carrito.totalPrice}. Producto/os:\nID: ${carrito.productos[0].id}. Nombre: ${carrito.productos[0].nombre}. Precio: ${carrito.productos[0].precio}. Cantidad: ${carrito.productos[0].quantity}. Talla: ${carrito.productos[0].talla}.`)
+console.log(`\nINTERFACES E INTERFACES EXTENDIDAD:\nPrecio Total del Carrito: ${carrito.totalPrice}. Producto/os:\nID: ${carrito.productos[0].id}. Nombre: ${carrito.productos[0].nombre}. Precio: ${carrito.productos[0].precio}. Cantidad: ${carrito.productos[0].quantity}. Talla: ${carrito.productos[0]?.talla}.`)
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -1062,7 +1074,6 @@ class AvengerI {
     //* Si no se coloca nada, por defecto las propiedades quedarán de tipo "public"
     //* El tipo de propiedad "protected". No se puede acceder a ellas en instancias pero sí en clases que heredan 
 
-
     readonly name: string //* Sólo lectura para esta propiedad utilizando "readonly".
 
     // Existen dos formas de indicar que una propiedad es privada:
@@ -1093,12 +1104,9 @@ class AvengerI {
         }
     }
 }
-
-const avenger = new AvengerI('Spidey',80);
-
-console.log(`Nombre del Avenger: ${avenger.name}. Nivel de Poder: ${avenger.wonBattles}`)
-
-//! Type 'number' has no callable assignments.
+const avengerI = new AvengerI('Spidey',80);
+avengerI.power = 2
+console.log(`Nombre del Avenger: ${avengerI.name}. Nivel de Poder: ${avengerI.wonBattles}`)
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -1108,19 +1116,21 @@ console.log(`Nombre del Avenger: ${avenger.name}. Nivel de Poder: ${avenger.wonB
 
 import { type IAvenger } from './types.js'
 
-/* class AvengerII implements IAvenger {
-
-    name: string,
-    powerScore: number,
-    wonBattles: number,
-    age: number
+class AvengerII implements IAvenger {
+  
+    name: string =''
+    powerScore: number = 0
+    wonBattles: number = 0
+    age: number = 0
 
     constructor(name: string,powerScore: number){
         this.name = name
         this.powerScore = powerScore
     }
 
-    battle: (enemy: AvengerII, win: boolean) => void;
+    battle = (enemy: IAvenger, win: boolean) => {
+        return ''
+    }
 
     get fullName(){
         return `${this.name}, de poder ${this.powerScore}.`
@@ -1133,4 +1143,7 @@ import { type IAvenger } from './types.js'
             throw new Error('Power score cannot be more than 100')
         }
     }
-} */
+}
+
+const avengerII = new AvengerII('Hulk',100);
+console.log(`Nombre del Avenger: ${avengerII.name}. Nivel de Poder: ${avengerII.powerScore}`)
