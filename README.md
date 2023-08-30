@@ -1,6 +1,7 @@
 # Curso de Typescript
 
 > Nota inicial
+
 Para correr todo el curso completo se deben ejecutar los siguientes comandos:
 
 Para instalar los módulos requeridos para la ejecución:
