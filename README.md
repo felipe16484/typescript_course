@@ -1,5 +1,15 @@
 # Curso de Typescript
 
+> Nota inicial
+Para correr todo el curso completo se deben ejecutar los siguientes comandos:
+
+Para instalar los módulos requeridos para la ejecución:
+- npm install -D @types/node
+- npm install axios
+
+Para correr el curso entero después de la instalación de los módulos:
+- npx ts-node main.ts
+
 > ¿Qué es Typescript?
 
 Es un lenguaje de programación que está basado Javascript, pero lo que hace es añadirle a éste último es un tipado más fuerte y robustés a la hora de desarrollar un proyecto grande. 
